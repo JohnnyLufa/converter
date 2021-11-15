@@ -3,11 +3,11 @@ a lib for golang , generate mysql table schema to golang struct
 mysql表结构自动生成golang struct  
 
 ## github地址
-[https://github.com/gohouse/converter](https://github.com/gohouse/converter)
+[https://github.com/JohnnyLufa/converter](https://github.com/JohnnyLufa/converter)
 
 ## 安装
-1. 直接下载可执行文件: [下载地址](https://github.com/gohouse/converter/releases)  
-2. golang源码包: `go get github.com/gohouse/converter`
+1. 直接下载可执行文件: [下载地址](https://github.com/JohnnyLufa/converter/releases)  
+2. golang源码包: `go get github.com/JohnnyLufa/converter`
 
 ## 示例表结构
 ```sql
@@ -21,7 +21,7 @@ CREATE TABLE `prefix_user` (
 ```
 
 ## 命令行用法
-1. 下载对应平台的可执行文件, [下载地址](https://github.com/gohouse/converter/releases)
+1. 下载对应平台的可执行文件, [下载地址](https://github.com/JohnnyLufa/converter/releases)
 
 2. 命令行执行
     ```sh
@@ -46,7 +46,7 @@ CREATE TABLE `prefix_user` (
 package main
 import (
 	"fmt"
-	"github.com/gohouse/converter"
+	"github.com/JohnnyLufa/converter"
 )
 func main() {
 	err := converter.NewTable2Struct().
@@ -63,7 +63,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/gohouse/converter"
+	"github.com/JohnnyLufa/converter"
 )
 
 func main() {
@@ -95,7 +95,7 @@ func main() {
 		// 是否添加结构体方法获取表名
 		RealNameMethod("TableName").
 		// 生成的结构体保存路径
-		SavePath("/Users/fizz/go/src/github.com/gohouse/gupiao/model/model.go").
+		SavePath("/Users/fizz/go/src/github.com/JohnnyLufa/gupiao/model/model.go").
 		// 数据库dsn,这里可以使用 t2t.DB() 代替,参数为 *sql.DB 对象
 		Dsn("root:root@tcp(localhost:3306)/test?charset=utf8").
 		// 执行
