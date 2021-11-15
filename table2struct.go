@@ -44,9 +44,9 @@ var typeForMysqlToGo = map[string]string{
 	"datetime":           "time.Time", // time.Time or string
 	"timestamp":          "time.Time", // time.Time or string
 	"time":               "time.Time", // time.Time or string
-	"float":              "float",
-	"double":             "float",
-	"decimal":            "float",
+	"float":              "float64",
+	"double":             "float64",
+	"decimal":            "float64",
 	"binary":             "string",
 	"varbinary":          "string",
 }
