@@ -52,6 +52,15 @@ var typeForMysqlToGo = map[string]string{
 	"json":               "string",
 }
 
+var nullableTypeOf = map[string]string{
+	"string":    "sql.NullString",
+	"time.Time": "sql.NullTime",
+	"float64":   "sql.NullFloat64",
+	"bool":      "sql.NullBool",
+	"int":       "sql.NullInt64",
+	"uint":      "sql.NullInt64",
+}
+
 type Table2Struct struct {
 	dsn            string
 	savePath       string
@@ -307,10 +316,15 @@ func (t *Table2Struct) getColumns(table ...string) (tableColumns map[string][]co
 				jsonTag = t.camelCase(jsonTag)
 			}
 
-			//if col.Nullable == "YES" {
-			//	col.Json = fmt.Sprintf("`json:\"%s,omitempty\"`", col.Json)
-			//} else {
-			//}
+			if col.Nullable == "YES" {
+				if col.Type == "uint" {
+					col.ColumnComment += " NOTE: This column is UNSIGNED"
+				}
+				col.Type = nullableTypeOf[col.Type]
+
+				//	col.Json = fmt.Sprintf("`json:\"%s,omitempty\"`", col.Json)
+				// } else {
+			}
 		}
 		if t.tagKey == "" {
 			t.tagKey = "orm"
