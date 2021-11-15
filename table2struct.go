@@ -171,14 +171,6 @@ func (t *Table2Struct) Run() error {
 			structName = t.camelCase(structName)
 		}
 
-		switch len(tableName) {
-		case 0:
-		case 1:
-			tableName = strings.ToUpper(tableName[0:1])
-		default:
-			// 字符长度大于1时
-			tableName = strings.ToUpper(tableName[0:1]) + tableName[1:]
-		}
 		depth := 1
 		structContent += "type " + structName + " struct {\n"
 		for _, v := range item {
@@ -215,7 +207,7 @@ func (t *Table2Struct) Run() error {
 	if savePath == "" {
 		savePath = "model.go"
 	}
-	filePath := fmt.Sprintf("%s", savePath)
+	filePath := savePath
 	f, err := os.Create(filePath)
 	if err != nil {
 		log.Println("Can not write file")
@@ -241,7 +233,6 @@ func (t *Table2Struct) dialMysql() {
 		}
 		t.db, t.err = sql.Open("mysql", t.dsn)
 	}
-	return
 }
 
 type column struct {
@@ -256,7 +247,7 @@ type column struct {
 // Function for fetching schema definition of passed table
 func (t *Table2Struct) getColumns(table ...string) (tableColumns map[string][]column, err error) {
 	// 根据设置,判断是否要把 date 相关字段替换为 string
-	if t.dateToTime == false {
+	if !t.dateToTime {
 		typeForMysqlToGo["date"] = "string"
 		typeForMysqlToGo["datetime"] = "string"
 		typeForMysqlToGo["timestamp"] = "string"
@@ -293,7 +284,6 @@ func (t *Table2Struct) getColumns(table ...string) (tableColumns map[string][]co
 
 		//col.Json = strings.ToLower(col.ColumnName)
 		col.Tag = col.ColumnName
-		col.ColumnComment = col.ColumnComment
 		col.ColumnName = t.camelCase(col.ColumnName)
 		col.Type = typeForMysqlToGo[col.Type]
 		jsonTag := col.Tag
@@ -350,7 +340,7 @@ func (t *Table2Struct) camelCase(str string) string {
 			text += strings.ToUpper(p[0:1])
 		default:
 			// 字符长度大于1时
-			if t.config.UcFirstOnly == true {
+			if t.config.UcFirstOnly {
 				text += strings.ToUpper(p[0:1]) + strings.ToLower(p[1:])
 			} else {
 				text += strings.ToUpper(p[0:1]) + p[1:]
