@@ -1,9 +1,9 @@
 package main
 
-func Up()  {
+func Up() {
 
 }
 
-func Down()  {
+func Down() {
 
 }

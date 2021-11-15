@@ -4,28 +4,29 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
-	_ "github.com/go-sql-driver/mysql"
 	"log"
 	"os"
 	"os/exec"
 	"strings"
+
+	_ "github.com/go-sql-driver/mysql"
 )
 
 //map for converting mysql type to golang types
 var typeForMysqlToGo = map[string]string{
-	"int":                "int64",
-	"integer":            "int64",
-	"tinyint":            "int64",
-	"smallint":           "int64",
-	"mediumint":          "int64",
-	"bigint":             "int64",
-	"int unsigned":       "int64",
-	"integer unsigned":   "int64",
-	"tinyint unsigned":   "int64",
-	"smallint unsigned":  "int64",
-	"mediumint unsigned": "int64",
-	"bigint unsigned":    "int64",
-	"bit":                "int64",
+	"int":                "int",
+	"integer":            "int",
+	"tinyint":            "int",
+	"smallint":           "int",
+	"mediumint":          "int",
+	"bigint":             "int",
+	"int unsigned":       "uint",
+	"integer unsigned":   "uint",
+	"tinyint unsigned":   "uint",
+	"smallint unsigned":  "uint",
+	"mediumint unsigned": "uint",
+	"bigint unsigned":    "uint",
+	"bit":                "int",
 	"bool":               "bool",
 	"enum":               "string",
 	"set":                "string",
@@ -43,9 +44,9 @@ var typeForMysqlToGo = map[string]string{
 	"datetime":           "time.Time", // time.Time or string
 	"timestamp":          "time.Time", // time.Time or string
 	"time":               "time.Time", // time.Time or string
-	"float":              "float64",
-	"double":             "float64",
-	"decimal":            "float64",
+	"float":              "float",
+	"double":             "float",
+	"decimal":            "float",
 	"binary":             "string",
 	"varbinary":          "string",
 }
