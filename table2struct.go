@@ -211,9 +211,13 @@ func (t *Table2Struct) Run() error {
 		importContent += "     \"time\"\n"
 	}
 	if strings.Contains(structContent, "sql.Null") {
-		importContent = "     \"database/sql\"\n"
+		importContent += "     \"database/sql\"\n"
 	}
-	importContent += ")\n\n"
+	if importContent != "import (" {
+		importContent += ")\n\n"
+	} else {
+		importContent = "\n\n"
+	}
 
 	// 写入文件struct
 	var savePath = t.savePath
