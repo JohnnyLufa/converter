@@ -179,7 +179,7 @@ func (t *Table2Struct) Run() error {
 			// 字段注释
 			var clumnComment string
 			if v.ColumnComment != "" {
-				clumnComment = fmt.Sprintf(" // %s", v.ColumnComment)
+				clumnComment = fmt.Sprintf(" // %s", strings.ReplaceAll(v.ColumnComment, "\n", " "))
 			}
 			structContent += fmt.Sprintf("%s%s %s %s%s\n",
 				tab(depth), v.ColumnName, v.Type, v.Tag, clumnComment)
