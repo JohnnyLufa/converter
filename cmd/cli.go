@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/JohnnyLufa/converter"
+	converter "github.com/JohnnyLufa/mysql2go-entity"
 )
 
 func main() {

@@ -3,11 +3,11 @@ a lib for golang , generate mysql table schema to golang struct
 mysql表结构自动生成golang struct  
 
 ## github地址
-[https://github.com/JohnnyLufa/converter](https://github.com/JohnnyLufa/converter)
+[https://github.com/JohnnyLufa/mysql2go-entity](https://github.com/JohnnyLufa/mysql2go-entity)
 
 ## 安装
-1. 直接下载可执行文件: [下载地址](https://github.com/JohnnyLufa/converter/releases)  
-2. golang源码包: `go get github.com/JohnnyLufa/converter`
+1. 直接下载可执行文件: [下载地址](https://github.com/JohnnyLufa/mysql2go-entity/releases)  
+2. golang源码包: `go get github.com/JohnnyLufa/mysql2go-entity`
 
 ## 示例表结构
 ```sql
@@ -21,7 +21,7 @@ CREATE TABLE `prefix_user` (
 ```
 
 ## 命令行用法
-1. 下载对应平台的可执行文件, [下载地址](https://github.com/JohnnyLufa/converter/releases)
+1. 下载对应平台的可执行文件, [下载地址](https://github.com/JohnnyLufa/mysql2go-entity/releases)
 
 2. 命令行执行
     ```sh
@@ -46,7 +46,7 @@ CREATE TABLE `prefix_user` (
 package main
 import (
 	"fmt"
-	"github.com/JohnnyLufa/converter"
+	"github.com/JohnnyLufa/mysql2go-entity"
 )
 func main() {
 	err := converter.NewTable2Struct().
@@ -63,7 +63,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/JohnnyLufa/converter"
+	"github.com/JohnnyLufa/mysql2go-entity"
 )
 
 func main() {

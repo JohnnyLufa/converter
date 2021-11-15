@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/JohnnyLufa/converter"
+	converter "github.com/JohnnyLufa/mysql2go-entity"
 )
 
 func main() {

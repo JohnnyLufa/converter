@@ -1,4 +1,4 @@
-module github.com/JohnnyLufa/converter
+module github.com/JohnnyLufa/mysql2go-entity
 
 go 1.17
 
