@@ -61,7 +61,7 @@ var nullableTypeOf = map[string]string{
 	"uint":      "sql.NullInt64",
 }
 
-type PostRunHook func(map[string][]column) error
+type PostRunHook func(map[string][]Column) error
 
 type Table2Struct struct {
 	dsn            string
@@ -264,7 +264,7 @@ func (t *Table2Struct) dialMysql() {
 	}
 }
 
-type column struct {
+type Column struct {
 	ColumnName    string
 	Type          string
 	Nullable      string
@@ -274,7 +274,7 @@ type column struct {
 }
 
 // Function for fetching schema definition of passed table
-func (t *Table2Struct) getColumns(table ...string) (tableColumns map[string][]column, err error) {
+func (t *Table2Struct) getColumns(table ...string) (tableColumns map[string][]Column, err error) {
 	// 根据设置,判断是否要把 date 相关字段替换为 string
 	if !t.dateToTime {
 		typeForMysqlToGo["date"] = "string"
@@ -282,7 +282,7 @@ func (t *Table2Struct) getColumns(table ...string) (tableColumns map[string][]co
 		typeForMysqlToGo["timestamp"] = "string"
 		typeForMysqlToGo["time"] = "string"
 	}
-	tableColumns = make(map[string][]column)
+	tableColumns = make(map[string][]Column)
 	// sql
 	var sqlStr = `SELECT COLUMN_NAME,DATA_TYPE,IS_NULLABLE,TABLE_NAME,COLUMN_COMMENT
 		FROM information_schema.COLUMNS 
@@ -303,7 +303,7 @@ func (t *Table2Struct) getColumns(table ...string) (tableColumns map[string][]co
 	defer rows.Close()
 
 	for rows.Next() {
-		col := column{}
+		col := Column{}
 		err = rows.Scan(&col.ColumnName, &col.Type, &col.Nullable, &col.TableName, &col.ColumnComment)
 
 		if err != nil {
@@ -352,7 +352,7 @@ func (t *Table2Struct) getColumns(table ...string) (tableColumns map[string][]co
 		}
 		//columns = append(columns, col)
 		if _, ok := tableColumns[col.TableName]; !ok {
-			tableColumns[col.TableName] = []column{}
+			tableColumns[col.TableName] = []Column{}
 		}
 		tableColumns[col.TableName] = append(tableColumns[col.TableName], col)
 	}
