@@ -206,14 +206,14 @@ func (t *Table2Struct) Run() error {
 	}
 
 	// 如果有引入 time.Time / sql.Null* , 则需要引入 time 包
-	importContent := "import ("
+	importContent := "import (\n"
 	if strings.Contains(structContent, "time.Time") {
 		importContent += "     \"time\"\n"
 	}
 	if strings.Contains(structContent, "sql.Null") {
 		importContent += "     \"database/sql\"\n"
 	}
-	if importContent != "import (" {
+	if importContent != "import (\n" {
 		importContent += ")\n\n"
 	} else {
 		importContent = "\n\n"
