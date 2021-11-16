@@ -181,7 +181,7 @@ func (t *Table2Struct) Run() error {
 		tableName := tableRealName
 		structName := tableName
 		if t.config.StructNameToHump {
-			structName = t.camelCase(structName)
+			structName = t.CamelCase(structName)
 		}
 
 		depth := 1
@@ -313,7 +313,7 @@ func (t *Table2Struct) getColumns(table ...string) (tableColumns map[string][]Co
 
 		//col.Json = strings.ToLower(col.ColumnName)
 		col.Tag = col.ColumnName
-		col.ColumnName = t.camelCase(col.ColumnName)
+		col.ColumnName = t.CamelCase(col.ColumnName)
 		col.Type = typeForMysqlToGo[col.Type]
 		jsonTag := col.Tag
 		// 字段首字母本身大写, 是否需要删除tag
@@ -328,7 +328,7 @@ func (t *Table2Struct) getColumns(table ...string) (tableColumns map[string][]Co
 			}
 
 			if t.config.JsonTagToHump {
-				jsonTag = t.camelCase(jsonTag)
+				jsonTag = t.CamelCase(jsonTag)
 			}
 
 			if col.Nullable == "YES" {
@@ -359,7 +359,7 @@ func (t *Table2Struct) getColumns(table ...string) (tableColumns map[string][]Co
 	return
 }
 
-func (t *Table2Struct) camelCase(str string) string {
+func (t *Table2Struct) CamelCase(str string) string {
 	// 是否有表前缀, 设置了就先去除表前缀
 	if t.prefix != "" {
 		str = strings.Replace(str, t.prefix, "", 1)
