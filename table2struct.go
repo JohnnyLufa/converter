@@ -61,6 +61,8 @@ var nullableTypeOf = map[string]string{
 	"uint":      "sql.NullInt64",
 }
 
+type PostRunHook func(map[string][]column) error
+
 type Table2Struct struct {
 	dsn            string
 	savePath       string
@@ -83,6 +85,7 @@ type T2tConfig struct {
 	JsonTagToHump    bool // json tag是否转为驼峰，默认为false，不转换
 	UcFirstOnly      bool // 字段首字母大写的同时, 是否要把其他字母转换为小写,默认false不转换
 	SeperatFile      bool // 每个struct放入单独的文件,默认false,放入同一个文件
+	PostRunHook      PostRunHook
 }
 
 func NewTable2Struct() *Table2Struct {
@@ -231,12 +234,20 @@ func (t *Table2Struct) Run() error {
 		log.Println("Can not write file")
 		return err
 	}
-	defer f.Close()
 
 	f.WriteString(packageName + importContent + structContent)
+	f.Close()
 
 	cmd := exec.Command("gofmt", "-w", filePath)
 	cmd.Run()
+
+	log.Println("Running PostRunHook")
+	if t.config.PostRunHook != nil {
+		err := t.config.PostRunHook(tableColumns)
+		if err != nil {
+			return err
+		}
+	}
 
 	log.Println("gen model finish!!!")
 
