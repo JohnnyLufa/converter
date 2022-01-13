@@ -53,12 +53,12 @@ var typeForMysqlToGo = map[string]string{
 }
 
 var nullableTypeOf = map[string]string{
-	"string":    "sql.NullString",
-	"time.Time": "sql.NullTime",
-	"float64":   "sql.NullFloat64",
-	"bool":      "sql.NullBool",
-	"int":       "sql.NullInt64",
-	"uint":      "sql.NullInt64",
+	"string":    "*string",
+	"time.Time": "*time.Time",
+	"float64":   "*float64",
+	"bool":      "*bool",
+	"int":       "*int",
+	"uint":      "*uint",
 }
 
 type PostRunHook func(map[string][]Column) error
